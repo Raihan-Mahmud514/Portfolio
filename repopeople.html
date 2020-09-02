@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lists of Github users</title>
+    <style media="screen">
+      
+      header{
+        text-align: center;
+        background-color:rgb(255, 255, 255);
+      }
+
+      footer{
+
+        text-align: center;
+        font-size: 1.2vw;
+        padding-bottom: 2em;
+        font-weight: bold;
+      }
+
+      button{
+        color:rgb(0,0,0);
+        font-size: 1.5vw;
+        background-color: #rgb(255, 255, 255);
+        cursor:pointer;
+        width:20vw;
+        border:3px blue;
+        border-radius: 12px;
+        margin-top: 4px;
+      }
+
+      button:hover{
+        width:15vw;
+      }
+      butt
+      on:active{
+        color:white;
+        font-size: 1.5vw;
+        background-color:rgb(255, 255, 255);
+        cursor:pointer;
+        width:20vw;
+        border:3px solid white;
+        border-radius: 12px;
+        margin-top: 4px;
+       
+      }
+      body{
+          margin:5%;
+          width:80%;
+          font-family:calibri;
+          background-color:white;
+      }
+      
+      li{
+        list-style:none;
+      }
+      #showme{
+        margin:10%;
+      }
+      #individual{
+        border:2px solid rgb(255, 255, 255);
+        margin:2%;
+        background-color: rgb(255, 255, 255);
+        overflow:auto;
+      }
+      #sub-individual{
+        display: inline-block;
+        background-color: rgb(255, 255, 255);
+        padding-right:10%;
+        margin-bottom:5%;
+        margin-top:5%;
+        margin-left:5%;
+        margin-right:5%;
+        border:1px solid rgb(0,0,0);
+      }
+      img{
+        margin-bottom:5%;
+        margin-top:5%;
+        margin-left:5%;
+        border:2px solid rgb(255, 255, 255);
+        margin-bottom:-12px;
+        padding:3px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Lists of Github users</h1>
+       <h2><button id="showInfo">Load Github Users</button>
+         <button onclick="document.location='https://raihan-mahmud514.github.io/Portfolio/'">Back to Portfolio</button></h2>
+    </header><hr>
+
+    <div id="showme"></div>
+    <script>
+        document.getElementById("showInfo").addEventListener('click', onProcess);
+        function onProcess(){
+            var req = new XMLHttpRequest();
+            req.open('GET', 'https://api.github.com/users', true);
+            req.onload = function() {
+                if(req.status==200){
+                  var people = JSON.parse(req.responseText)
+                  var display= '';
+                  for(var i in people){
+                   display +=
+                   '<div id="individual">' +
+                   '<img src="'+people[i].avatar_url+'" width="20%">'+
+                   '<div id="sub-individual"><ul>' +
+                   '<p><li>ID: <span id="class-one">'+people[i].id+'<span></li></p>' +
+                   '<p><li>Login: <span id="class-one">'+people[i].login+'<span></li></p>' +
+                   '<p><li>Repos: <a href="'+people[i].repos_url +'" target="_blank">'+people[i].repos_url +'</a></li></p>'+
+                   '<p><li>URL: <a href="'+people[i].url+'" target="_blank">'+people[i].url+'</a></li></p>' +
+                   '<p><li>Gits: <a href="'+people[i].gists_url+'" target="_blank">'+people[i].gists_url+'</a></li></p>' +
+                   '</ul></div>' +
+                   '</div>';
+                   document.getElementById('showme').innerHTML = display;
+                   }
+                }
+            }
+            req.send();
+        }
+    </script>
+    <footer>
+   <code>Copyright &copy; 2020 Raihan's site</code>
+ </footer>
+  </body>
+</html>
